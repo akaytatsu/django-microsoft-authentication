@@ -101,10 +101,10 @@ def get_django_user(email):
     if not validate_username(username=email):
         return
     try:
-        user = User.objects.get(username=email)
+        user = User.objects.get(email=email)
     except User.DoesNotExist:
         random_password = ''.join(random.choice(string.ascii_letters) for i in range(32))
-        user = User(username=email, email=email, password=make_password(random_password))
-        user.is_staff = settings.MSAUTH_NEWUSER_IS_STAFF or True
+        user = User(name="", email=email, password=make_password(random_password))
+        user.is_staff = False
         user.save()
     return user
